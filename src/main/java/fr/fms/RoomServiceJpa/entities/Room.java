@@ -1,9 +1,6 @@
 package fr.fms.RoomServiceJpa.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -17,6 +14,7 @@ public class Room  implements Serializable {
     private Long id;
     private String name;
     private int capacity;
+
 
     //----------------------------constructors----------------------
     public Room() {}
@@ -49,5 +47,11 @@ public class Room  implements Serializable {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    //-----------------------------affichage-----------------------------------
+    @Override
+    public String toString() {
+        return "ID: "+ id + "Room :" + name+ " Capacity: " + capacity;
     }
 }
