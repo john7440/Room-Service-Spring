@@ -10,7 +10,7 @@ import java.util.List;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByRoomName(String name);
     List<Booking> findByDate(LocalDate date);
-    List<Booking> findByRoomCapacity(int capacity);
+    List<Booking> findByRoomCapacityGreaterThanEqual(int capacity);
     List<Booking> findByRoomIdAndDateAndStartTimeLessThanAndEndTimeGreaterThan(
             Long roomId,
             LocalDate date,
