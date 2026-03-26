@@ -1,10 +1,12 @@
 package fr.fms.RoomServiceJpa.ihm;
 
 import fr.fms.RoomServiceJpa.business.BookingService;
+import fr.fms.RoomServiceJpa.entities.Booking;
 import fr.fms.RoomServiceJpa.entities.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,6 +27,7 @@ public class BookingIHM {
             switch (choice){
                 case 1 -> showAllRooms();
                 case 4 -> addRoom();
+                case 5 -> deleteRoom();
                 case 6 -> updateRoom();
                 case 9 ->  System.out.println("\nAu revoir");
                 default -> System.out.println("Choix invalide, veuillez réessayer");
@@ -52,6 +55,12 @@ public class BookingIHM {
     private void showAllRooms(){
         List<Room> rooms = bookingService.findAll();
         printRoomList(rooms);
+    }
+
+    private void showRoomByDate(LocalDate date){
+        List<Booking> rooms = bookingService.findAllByDate(date);
+        //TODO print Booking
+
     }
 
     private void printRoomList(List<Room> rooms) {
@@ -92,6 +101,19 @@ public class BookingIHM {
         bookingService.saveRoom(r);
         System.out.printf("\nSalle %s mise à jour !",  r.getName());
     }
+    //---------------------------------------------------------------------
+
+    private void deleteRoom(){
+       showAllRooms();
+        Long id = readLong("\nID de la salle à supprimer: ");
+        if (bookingService.deleteRoomById(id)){
+            System.out.println("\nSalle supprimé !");
+        }
+        else{
+            System.out.println("\nSalle introuvable");
+        }
+    }
+    //-----------------------------reservations*-----------------------
 
     //---------------méthodes utilitaires----------------------------------------
     private int readInt(String prompt) {
