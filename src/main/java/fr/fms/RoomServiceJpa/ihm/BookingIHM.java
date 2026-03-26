@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +22,7 @@ public class BookingIHM {
     //----------------------menu---------------------------------------
     public void start(){
         int choice = -1;
-        while(choice!=9){
+        while(choice!=10){
             printMenu();
             choice = readInt("Votre choix : ");
             switch (choice){
@@ -31,8 +32,10 @@ public class BookingIHM {
                 case 4 -> addRoom();
                 case 5 -> deleteRoom();
                 case 6 -> updateRoom();
+                case 7 -> addBooking();
                 case 8 -> deleteBooking();
-                case 9 ->  System.out.println("\nAu revoir");
+                case 9 -> showRoomByDate();
+                case 10 ->  System.out.println("\nAu revoir");
                 default -> System.out.println("Choix invalide, veuillez réessayer");
             }
         }
@@ -50,8 +53,9 @@ public class BookingIHM {
         System.out.println("****************************");
         System.out.println("7: Créer une reservation");
         System.out.println("8: Supprimer une réservation");
+        System.out.println("9: Voir réservations à une date précise");
         System.out.println("******************************");
-        System.out.println("9: Sortir du programme\n\n");
+        System.out.println("10: Sortir du programme\n\n");
 
     }
     //-------------------------------salles-----------------------------------
@@ -60,7 +64,8 @@ public class BookingIHM {
         printRoomList(rooms);
     }
 
-    private void showRoomByDate(LocalDate date){
+    private void showRoomByDate(){
+        LocalDate date = readLocalDate("Date de reservation: ");
         List<Booking> rooms = bookingService.findAllByDate(date);
         printBookingList(rooms);
 
@@ -149,6 +154,40 @@ public class BookingIHM {
         System.out.println("-".repeat(70));
     }
     //----------------------------------------------------------
+
+    private void addBooking(){
+        showAllRooms();
+        Long roomId = readLong("ID de la salle à réserver: ");
+        Room room = bookingService.findById(roomId);
+        if (room == null) {
+            System.out.println("Salle introuvable");
+            return;
+        }
+        LocalDate date = readLocalDate("Date de la réservation (YYYY-MM-DD) : ");
+        if (date == null) {
+            return;
+        }
+        LocalTime startTime = readLocalTime("Heure de début (HH:MM):");
+        if (startTime == null) {
+            return;
+        }
+        LocalTime endTime = readLocalTime("Heure de fin (HH:MM):");
+        if (endTime == null) {
+            return;
+        }
+        // Validation horaires (8-18h)
+        if (startTime.isBefore(LocalTime.of(8,0)) ||  endTime.isAfter(LocalTime.of(18,0)) || !endTime.isAfter(startTime)) {
+            System.out.println("Horaires invalide ! Les réservations ne sont possible que entre 08:00 et 18:00");
+            return;
+        }
+
+        Booking booking = new Booking(room, date, startTime, endTime);
+        Booking savedBooking = bookingService.saveBooking(booking);
+        if (savedBooking != null) {
+            System.out.println("Réservation créée avec succès !");
+        }
+    }
+
     private void deleteBooking(){
         showAllBookings();
         Long id = readLong("ID de la réservation à supprimer: ");
@@ -158,8 +197,7 @@ public class BookingIHM {
             System.out.println("Réservation non trouvée");
         }
     }
-
-
+    //------------------------------------------------------------------------
     //---------------méthodes utilitaires----------------------------------------
     private int readInt(String prompt) {
         System.out.print(prompt);
@@ -188,6 +226,27 @@ public class BookingIHM {
         }
         catch (Exception ex) {
             return -1L;
+        }
+    }
+    //----------------------------------------------------
+
+    private LocalDate readLocalDate(String prompt){
+        System.out.print(prompt);
+        try {
+            return LocalDate.parse(scan.nextLine());
+        } catch (Exception ex) {
+            System.out.println("Format invalide, utilisez YYYY-MM-DD");
+            return null;
+        }
+    }
+    //---------------------------------------------------------------------
+    private LocalTime readLocalTime(String prompt) {
+        System.out.print(prompt);
+        try {
+            return LocalTime.parse(scan.nextLine());
+        } catch (Exception ex) {
+            System.out.println("Format invalide, utilisez HH:MM");
+            return null;
         }
     }
 }
