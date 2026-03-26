@@ -26,6 +26,7 @@ public class BookingIHM {
             choice = readInt("Votre choix : ");
             switch (choice){
                 case 1 -> showAllRooms();
+                case 2 -> showBookingByName();
                 case 4 -> addRoom();
                 case 5 -> deleteRoom();
                 case 6 -> updateRoom();
@@ -59,7 +60,7 @@ public class BookingIHM {
 
     private void showRoomByDate(LocalDate date){
         List<Booking> rooms = bookingService.findAllByDate(date);
-        //TODO print Booking
+        printBookingList(rooms);
 
     }
 
@@ -113,7 +114,34 @@ public class BookingIHM {
             System.out.println("\nSalle introuvable");
         }
     }
+    //----------------------------------------------------------------------
     //-----------------------------reservations*-----------------------
+    private void showBookingByName(){
+        showAllRooms();
+        String name = readString("Nom de la salle: ");
+        List<Booking> bookings = bookingService.findAllByRoomName(name);
+        printBookingList(bookings);}
+    //-----------------------------------------------------------------
+
+    private void printBookingList(List<Booking> bookings) {
+        if (bookings.isEmpty()) {
+            System.out.println("Aucune réservation trouvée");
+            return;
+        }
+        System.out.printf("%-5s %-15s %-20s %-10s %-15s%n",
+                "ID", "SALLE", "DATE", "DEBUT", "FIN");
+        System.out.println("-".repeat(70));
+        for (Booking b : bookings) {
+            System.out.printf("%-5d %-15s %-20s %-10s %-15s%n",
+                    b.getId(),
+                    b.getRoom().getName(),
+                    b.getDate(),
+                    b.getStartTime(),
+                    b.getEndTime());
+        }
+        System.out.println("-".repeat(70));
+    }
+
 
     //---------------méthodes utilitaires----------------------------------------
     private int readInt(String prompt) {
