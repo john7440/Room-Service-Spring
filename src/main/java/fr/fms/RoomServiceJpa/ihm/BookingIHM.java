@@ -54,6 +54,7 @@ public class BookingIHM {
         System.out.println("****************************");
         System.out.println("7: Créer une reservation");
         System.out.println("8: Supprimer une réservation");
+        System.out.println("****************************");
         System.out.println("9: Voir réservations à une date précise");
         System.out.println("10: Voir salles en fonction de la capacité désirée");
         System.out.println("******************************");
@@ -61,11 +62,18 @@ public class BookingIHM {
 
     }
     //-------------------------------salles-----------------------------------
+
+    /**
+     * Method to display a list of all the rooms
+     */
     private void showAllRooms(){
         List<Room> rooms = bookingService.findAll();
         printRoomList(rooms);
     }
 
+    /**
+     * Method to find all booking for a specific date
+     */
     private void showRoomByDate(){
         LocalDate date = readLocalDate("Date de reservation: ");
         List<Booking> rooms = bookingService.findAllByDate(date);
@@ -73,12 +81,20 @@ public class BookingIHM {
 
     }
 
+    /**
+     * Method to find all room with an equal or greater capacity
+     */
     private void showRoomByCapacity(){
         int capacity = readInt("Capacité minimale souhaitée: ");
         List<Room> rooms = bookingService.findAllByMinCapacity(capacity);
         printRoomList(rooms);
     }
+    //----------------------------------------------------------------------
 
+    /**
+     * Method to display a formated list of rooms
+     * @param rooms : the list of rooms
+     */
     private void printRoomList(List<Room> rooms) {
         if (rooms.isEmpty()) {
             System.out.println("Aucun salle trouvée");
@@ -97,6 +113,9 @@ public class BookingIHM {
     }
     //----------------------------------------------------------
 
+    /**
+     * Method to add a new room
+     */
     private void addRoom(){
         String name = readString("Nom de la salle: ");
         int capacity = readInt("Capacité maximale: ");
@@ -106,6 +125,9 @@ public class BookingIHM {
     }
     //-----------------------------------------------------------
 
+    /**
+     *  Method to modify a room (name and capacity)
+     */
     private void updateRoom() {
         showAllRooms();
         Long id = readLong("ID de la salle à modifier : ");
@@ -119,6 +141,9 @@ public class BookingIHM {
     }
     //---------------------------------------------------------------------
 
+    /**
+     * Method to delete a room (if it exists)
+     */
     private void deleteRoom(){
        showAllRooms();
         Long id = readLong("\nID de la salle à supprimer: ");
@@ -131,11 +156,18 @@ public class BookingIHM {
     }
     //----------------------------------------------------------------------
     //-----------------------------reservations*-----------------------
+
+    /**
+     * Method to show all the bookings
+     */
     private void showAllBookings(){
         List<Booking> bookings = bookingService.findAllBookings();
         printBookingList(bookings);
     }
 
+    /**
+     * Method to find all booking for a specific room (search by name)
+     */
     private void showBookingByName(){
         showAllRooms();
         String name = readString("Nom de la salle: ");
@@ -144,6 +176,10 @@ public class BookingIHM {
 
     //-----------------------------------------------------------------
 
+    /**
+     * Method to display a formated list of bookings
+     * @param bookings : the list of Bookings to display
+     */
     private void printBookingList(List<Booking> bookings) {
         if (bookings.isEmpty()) {
             System.out.println("Aucune réservation trouvée");
@@ -164,6 +200,9 @@ public class BookingIHM {
     }
     //----------------------------------------------------------
 
+    /**
+     * Method to verify and add a new booking if it's valid
+     */
     private void addBooking(){
         showAllRooms();
         Long roomId = readLong("ID de la salle à réserver: ");
@@ -172,7 +211,7 @@ public class BookingIHM {
             System.out.println("Salle introuvable");
             return;
         }
-        LocalDate date = readLocalDate("Date de la réservation (YYYY-MM-DD) : ");
+        LocalDate date = readLocalDate("Date de la réservation (AAAA-MM-JJ) : ");
         if (date == null) {
             return;
         }
@@ -197,6 +236,9 @@ public class BookingIHM {
         }
     }
 
+    /**
+     * Method to delete a booking if it exists
+     */
     private void deleteBooking(){
         showAllBookings();
         Long id = readLong("ID de la réservation à supprimer: ");
