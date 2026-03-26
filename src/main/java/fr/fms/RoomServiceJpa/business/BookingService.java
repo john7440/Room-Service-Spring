@@ -58,7 +58,7 @@ public class BookingService {
         );
         return !conflicts.isEmpty();
     }
-    //-------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------
 
     public Booking saveBooking(Booking booking){
         if (hasConflict(booking.getRoom().getId(), booking.getDate(), booking.getStartTime(), booking.getEndTime())) {
@@ -67,6 +67,7 @@ public class BookingService {
         }
         return bookingRepository.save(booking);
     }
+    //----------------------------------------------------------
 
     public boolean deleteBookingById(Long id) {
         if (bookingRepository.existsById(id)) {
@@ -75,11 +76,12 @@ public class BookingService {
         }
         return false;
     }
+    //-------------------------------------------------------
 
     public List<Booking> findAllByDate(LocalDate date) {
         return bookingRepository.findByDate(date);
     }
-    //----------------------------------------------------------------------------------------
+
 
 
 }

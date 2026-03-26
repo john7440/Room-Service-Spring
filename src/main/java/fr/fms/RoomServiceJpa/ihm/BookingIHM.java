@@ -47,7 +47,7 @@ public class BookingIHM {
         System.out.println("1: Afficher toutes les salles");
         System.out.println("2: Afficher réservations par salle");
         System.out.println("3: Afficher toutes les réservations");
-        System.out.println("****************************");
+        System.out.println("***************************");
         System.out.println("4: Ajouter une salle");
         System.out.println("5: Supprimer une salle");
         System.out.println("6: Modifier une salle");
@@ -250,6 +250,12 @@ public class BookingIHM {
     }
     //------------------------------------------------------------------------
     //---------------méthodes utilitaires----------------------------------------
+
+    /**
+     * Method to verify an Integer
+     * @param prompt : the prompt to display
+     * @return : a validated int/ -1
+     */
     private int readInt(String prompt) {
         System.out.print(prompt);
         try {
@@ -260,6 +266,11 @@ public class BookingIHM {
     }
     //------------------------------------------------------------
 
+    /**
+     * Method to verify a String
+     * @param prompt : the prompt to display
+     * @return : a validated string / ""
+     */
     private String readString(String prompt) {
         System.out.print(prompt);
         try {
@@ -270,6 +281,11 @@ public class BookingIHM {
     }
     //-----------------------------------------------------
 
+    /**
+     * Method to verify a Long
+     * @param prompt : the prompt to display
+     * @return : a validated Long / -1L
+     */
     private Long readLong(String prompt) {
         System.out.print(prompt);
         try {
@@ -281,6 +297,11 @@ public class BookingIHM {
     }
     //----------------------------------------------------
 
+    /**
+     * Method to verify a Date
+     * @param prompt : the prompt to display
+     * @return : a validated Date / null
+     */
     private LocalDate readLocalDate(String prompt){
         System.out.print(prompt);
         try {
@@ -291,6 +312,12 @@ public class BookingIHM {
         }
     }
     //---------------------------------------------------------------------
+
+    /**
+     * Method to verify a LocalTime
+     * @param prompt : the prompt to display
+     * @return : a validated LocalTime / null
+     */
     private LocalTime readLocalTime(String prompt) {
         System.out.print(prompt);
         try {

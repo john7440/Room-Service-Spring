@@ -2,16 +2,11 @@ package fr.fms.RoomServiceJpa;
 
 import fr.fms.RoomServiceJpa.dao.BookingRepository;
 import fr.fms.RoomServiceJpa.dao.RoomRepository;
-import fr.fms.RoomServiceJpa.entities.Booking;
-import fr.fms.RoomServiceJpa.entities.Room;
 import fr.fms.RoomServiceJpa.ihm.BookingIHM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 
 @SpringBootApplication
