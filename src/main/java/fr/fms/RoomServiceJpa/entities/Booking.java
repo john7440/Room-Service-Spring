@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
+@Entity
 public class Booking implements Serializable {
     private static final long serialVersionUID = 1L;
 

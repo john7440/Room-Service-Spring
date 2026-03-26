@@ -1,21 +1,26 @@
 package fr.fms.RoomServiceJpa;
 
+import fr.fms.RoomServiceJpa.dao.BookingRepository;
 import fr.fms.RoomServiceJpa.dao.RoomRepository;
-import fr.fms.RoomServiceJpa.entities.Room;
+import fr.fms.RoomServiceJpa.ihm.BookingIHM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.Serializable;
 
 @SpringBootApplication
 public class RoomServiceJpaApplication implements CommandLineRunner {
     @Autowired
     private RoomRepository roomRepository;
 
-	public static void main(String[] args) {
+    @Autowired
+    private BookingRepository bookingRepository;
 
+    @Autowired
+    private BookingIHM bookingIHM;
+
+	public static void main(String[] args) {
         SpringApplication.run(RoomServiceJpaApplication.class, args);
 	}
 
@@ -30,6 +35,7 @@ public class RoomServiceJpaApplication implements CommandLineRunner {
 //        roomRepository.save(new Room("Mezza-3", 5));
 //        roomRepository.save(new Room("Connexion", 2));
 
+        bookingIHM.start();
     }
 
 }
