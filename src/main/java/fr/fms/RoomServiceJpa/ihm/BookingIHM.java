@@ -22,7 +22,7 @@ public class BookingIHM {
     //----------------------menu---------------------------------------
     public void start(){
         int choice = -1;
-        while(choice!=10){
+        while(choice!=11){
             printMenu();
             choice = readInt("Votre choix : ");
             switch (choice){
@@ -35,7 +35,8 @@ public class BookingIHM {
                 case 7 -> addBooking();
                 case 8 -> deleteBooking();
                 case 9 -> showRoomByDate();
-                case 10 ->  System.out.println("\nAu revoir");
+                case 10 -> showRoomByCapacity();
+                case 11 ->  System.out.println("\nAu revoir");
                 default -> System.out.println("Choix invalide, veuillez réessayer");
             }
         }
@@ -54,8 +55,9 @@ public class BookingIHM {
         System.out.println("7: Créer une reservation");
         System.out.println("8: Supprimer une réservation");
         System.out.println("9: Voir réservations à une date précise");
+        System.out.println("10: Voir salles en fonction de la capacité désirée");
         System.out.println("******************************");
-        System.out.println("10: Sortir du programme\n\n");
+        System.out.println("11: Sortir du programme\n\n");
 
     }
     //-------------------------------salles-----------------------------------
@@ -69,6 +71,12 @@ public class BookingIHM {
         List<Booking> rooms = bookingService.findAllByDate(date);
         printBookingList(rooms);
 
+    }
+
+    private void showRoomByCapacity(){
+        int capacity = readInt("Capacité minimale souhaitée: ");
+        List<Room> rooms = bookingService.findAllByMinCapacity(capacity);
+        printRoomList(rooms);
     }
 
     private void printRoomList(List<Room> rooms) {
@@ -133,6 +141,7 @@ public class BookingIHM {
         String name = readString("Nom de la salle: ");
         List<Booking> bookings = bookingService.findAllByRoomName(name);
         printBookingList(bookings);}
+
     //-----------------------------------------------------------------
 
     private void printBookingList(List<Booking> bookings) {
@@ -140,8 +149,8 @@ public class BookingIHM {
             System.out.println("Aucune réservation trouvée");
             return;
         }
-        System.out.printf("%-5s %-15s %-20s %-10s %-15s%n",
-                "ID", "SALLE", "DATE", "DEBUT", "FIN");
+        System.out.printf("%-5s %-15s %-20s %-10s %-15s %-10s%n",
+                "ID", "SALLE", "DATE", "DEBUT", "FIN","CAPACITÉ");
         System.out.println("-".repeat(70));
         for (Booking b : bookings) {
             System.out.printf("%-5d %-15s %-20s %-10s %-15s%n",

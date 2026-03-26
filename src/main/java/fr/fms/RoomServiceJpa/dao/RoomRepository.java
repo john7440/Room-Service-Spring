@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface RoomRepository extends JpaRepository<Room,Long> {
     Optional<Room> findById(Long id);
-    List<Room> findAllByOrderByCapacityAsc();
+    List<Room> findAllByCapacityGreaterThan(int capacity);
 }

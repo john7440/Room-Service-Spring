@@ -40,6 +40,10 @@ public class BookingService {
         }
         return false;
     }
+
+    public List<Room> findAllByMinCapacity(int capacity) {
+        return roomRepository.findAllByCapacityGreaterThan(capacity);
+    }
     //---------------------------booking----------------------------
     public List<Booking> findAllBookings() {
         return bookingRepository.findAll();
@@ -74,10 +78,6 @@ public class BookingService {
 
     public List<Booking> findAllByDate(LocalDate date) {
         return bookingRepository.findByDate(date);
-    }
-
-    public List<Booking> findAllByMinCapacity(int capacity) {
-        return bookingRepository.findByRoomCapacityGreaterThanEqual(capacity);
     }
     //----------------------------------------------------------------------------------------
 
