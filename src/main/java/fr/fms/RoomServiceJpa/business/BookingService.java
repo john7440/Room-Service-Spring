@@ -41,6 +41,9 @@ public class BookingService {
         return false;
     }
     //---------------------------booking----------------------------
+    public List<Booking> findAllBookings() {
+        return bookingRepository.findAll();
+    }
     public List<Booking> findAllByRoomName(String roomName) {
         return bookingRepository.findByRoomName(roomName);
     }

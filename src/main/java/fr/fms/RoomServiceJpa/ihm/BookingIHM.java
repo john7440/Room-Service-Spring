@@ -27,20 +27,22 @@ public class BookingIHM {
             switch (choice){
                 case 1 -> showAllRooms();
                 case 2 -> showBookingByName();
+                case 3 -> showAllBookings();
                 case 4 -> addRoom();
                 case 5 -> deleteRoom();
                 case 6 -> updateRoom();
+                case 8 -> deleteBooking();
                 case 9 ->  System.out.println("\nAu revoir");
                 default -> System.out.println("Choix invalide, veuillez réessayer");
             }
         }
-
     }
+
     private void printMenu(){
         System.out.println("\nBienvenu dans notre application de gestion de salles !");
         System.out.println("1: Afficher toutes les salles");
         System.out.println("2: Afficher réservations par salle");
-        System.out.println("3: Afficher les salles par capacité");
+        System.out.println("3: Afficher toutes les réservations");
         System.out.println("****************************");
         System.out.println("4: Ajouter une salle");
         System.out.println("5: Supprimer une salle");
@@ -116,6 +118,11 @@ public class BookingIHM {
     }
     //----------------------------------------------------------------------
     //-----------------------------reservations*-----------------------
+    private void showAllBookings(){
+        List<Booking> bookings = bookingService.findAllBookings();
+        printBookingList(bookings);
+    }
+
     private void showBookingByName(){
         showAllRooms();
         String name = readString("Nom de la salle: ");
@@ -140,6 +147,16 @@ public class BookingIHM {
                     b.getEndTime());
         }
         System.out.println("-".repeat(70));
+    }
+    //----------------------------------------------------------
+    private void deleteBooking(){
+        showAllBookings();
+        Long id = readLong("ID de la réservation à supprimer: ");
+        if (bookingService.deleteBookingById(id)){
+            System.out.println("\nRéservation correctement supprimée");
+        } else {
+            System.out.println("Réservation non trouvée");
+        }
     }
 
 
