@@ -29,8 +29,8 @@ public class BookingService {
         return roomRepository.findById(id).orElse(null);
     }
 
-    public Room saveRoom(Room room) {
-        return roomRepository.save(room);
+    public void saveRoom(Room room) {
+        roomRepository.save(room);
     }
 
     public boolean deleteRoomById(Long id) {
@@ -54,7 +54,7 @@ public class BookingService {
 
     public boolean hasConflict(Long roomId, LocalDate date, LocalTime start, LocalTime end) {
         List<Booking> conflicts = bookingRepository.findByRoomIdAndDateAndStartTimeLessThanAndEndTimeGreaterThan(
-                roomId, date, start, end
+                roomId, date, end, start
         );
         return !conflicts.isEmpty();
     }

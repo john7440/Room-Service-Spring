@@ -1,6 +1,7 @@
 package fr.fms.RoomServiceJpa.entities;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,6 +11,7 @@ import java.time.LocalTime;
  */
 @Entity
 public class Booking implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
