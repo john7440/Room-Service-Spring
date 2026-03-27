@@ -1,4 +1,4 @@
-package fr.fms.RoomServiceJpa.ihm;
+package fr.fms.RoomServiceJpa.ui;
 
 import fr.fms.RoomServiceJpa.business.BookingService;
 import fr.fms.RoomServiceJpa.entities.Booking;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class BookingIHM {
+public class BookingUI {
 
     @Autowired
     private BookingService bookingService;
@@ -185,8 +185,8 @@ public class BookingIHM {
             System.out.println("Aucune réservation trouvée");
             return;
         }
-        System.out.printf("%-5s %-15s %-20s %-10s %-15s %-10s%n",
-                "ID", "SALLE", "DATE", "DEBUT", "FIN","CAPACITÉ");
+        System.out.printf("%-5s %-15s %-20s %-10s %-15s %n",
+                "ID", "SALLE", "DATE", "DEBUT", "FIN");
         System.out.println("-".repeat(70));
         for (Booking b : bookings) {
             System.out.printf("%-5d %-15s %-20s %-10s %-15s%n",

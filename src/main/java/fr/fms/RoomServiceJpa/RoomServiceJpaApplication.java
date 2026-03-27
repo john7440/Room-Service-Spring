@@ -2,7 +2,7 @@ package fr.fms.RoomServiceJpa;
 
 import fr.fms.RoomServiceJpa.dao.BookingRepository;
 import fr.fms.RoomServiceJpa.dao.RoomRepository;
-import fr.fms.RoomServiceJpa.ihm.BookingIHM;
+import fr.fms.RoomServiceJpa.ui.BookingUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +18,7 @@ public class RoomServiceJpaApplication implements CommandLineRunner {
     private BookingRepository bookingRepository;
 
     @Autowired
-    private BookingIHM bookingIHM;
+    private BookingUI bookingUI;
 
 	public static void main(String[] args) {
         SpringApplication.run(RoomServiceJpaApplication.class, args);
@@ -44,7 +44,7 @@ public class RoomServiceJpaApplication implements CommandLineRunner {
 //        bookingRepository.save(new Booking(r4, LocalDate.of(2026, 3, 27), LocalTime.of(9, 0),  LocalTime.of(11, 0)));
 //        bookingRepository.save(new Booking(r4, LocalDate.of(2026, 3, 28), LocalTime.of(13, 0), LocalTime.of(15, 0)));
 
-        bookingIHM.start();
+        bookingUI.start();
     }
 
 }
